@@ -1,12 +1,12 @@
+#include <cstdio>
 #include <vector>
-#include <iostream>
 #include <chrono>
 
 using namespace std;
 
 constexpr short TAM_BL = 10;
 
-void matrix_mult (vector<vector<float>> A, vector<vector<float>> B, vector<vector<float>>& C, size_t size) {
+void matrix_mult (const vector<vector<float>>& A, const vector<vector<float>>& B, vector<vector<float>>& C, size_t size) {
     for (size_t i = 0; i < size; i++)
         for (size_t j = 0; j < size; j++) C[i][j] = 0;
 
@@ -16,7 +16,7 @@ void matrix_mult (vector<vector<float>> A, vector<vector<float>> B, vector<vecto
                 C[i][j] += A[i][k] * B[k][j];
 }
 
-void matrix_mult_cache_optimized (vector<vector<float>> A, vector<vector<float>> B, vector<vector<float>>& C, size_t size) {
+void matrix_mult_cache_optimized (const vector<vector<float>>& A, const vector<vector<float>>& B, vector<vector<float>>& C, size_t size) {
     for (size_t i = 0; i < size; i++)
         for (size_t j = 0; j < size; j++) C[i][j] = 0;
 
