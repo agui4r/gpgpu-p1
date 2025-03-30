@@ -1,6 +1,7 @@
+#include "timer.hpp"
+
 #include <cstdio>
 #include <vector>
-#include <chrono>
 
 using namespace std;
 
@@ -59,14 +60,10 @@ int main(int argc, char* argv[]) {
     //     cout << endl;
     // }
 
-    chrono::time_point<chrono::high_resolution_clock> start, end;
-
-    start = chrono::high_resolution_clock::now();
-    matrix_mult(A, B, C, size);
-    end = chrono::high_resolution_clock::now();
-
-    unsigned long elapsed = chrono::duration_cast<chrono::microseconds>(end - start).count();
-    printf ("Normal matrix multiplication time = %f miliseconds\n", static_cast<double>(elapsed) / 1000.0);
+    {
+        Timer t("Normal matrix multiplication time = %f miliseconds\n");
+        matrix_mult(A, B, C, size);
+    }
 
     // cout << "Normal matrix multiplication result: " << endl;
     // for (size_t i = 0; i < size; i++) {
@@ -76,12 +73,10 @@ int main(int argc, char* argv[]) {
     //     cout << endl;
     // }
 
-    start = chrono::high_resolution_clock::now();
-    matrix_mult_cache_optimized(A, B, C, size);
-    end = chrono::high_resolution_clock::now();
-
-    elapsed = chrono::duration_cast<chrono::microseconds>(end - start).count();
-    printf ("Cache optimized matrix multiplication time = %f miliseconds\n", static_cast<double>(elapsed) / 1000.0);
+    {
+        Timer t("Cache optimized matrix multiplication time = %f miliseconds\n");
+        matrix_mult_cache_optimized(A, B, C, size);
+    }
 
     // cout << "Cache optimized matrix multiplication result: " << endl;
     // for (size_t i = 0; i < size; i++) {

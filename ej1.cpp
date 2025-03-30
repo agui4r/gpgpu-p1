@@ -1,7 +1,7 @@
-#include <stdio.h>
+#include "timer.hpp"
+
 #include <stdlib.h>
 #include <vector>
-#include <chrono>
 
 //  blackhole procedure to avoid compiler optimizations, writing the value to 
 //  a volatile variable so the compiler cannot optimize away the access
@@ -25,23 +25,19 @@ int main(int argc, char* argv[]) {
         arr[i] = (char)(rand() % 128);
     }
 
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    //sequential memory access
-    start = std::chrono::system_clock::now();
-    for (size_t i = 0; i < size; i++) {
-        blackhole(arr[indexArr[i]]);
+    {
+        Timer t("Sequential access time = %f miliseconds\n");
+        for (size_t i = 0; i < size; i++) {
+            blackhole(arr[indexArr[i]]);
+        }
     }
-    end = std::chrono::system_clock::now();
-    unsigned long elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-    printf ("Sequential access time = %f miliseconds\n", static_cast<double>(elapsed) / 1000.0);
 
     //random memory access
-    start = std::chrono::system_clock::now();
-    for (size_t i = 0; i < size; i++) {
-        blackhole(arr[randomIndexArr[i]]);
+    {
+        Timer t("Random access time = %f miliseconds\n");
+        for (size_t i = 0; i < size; i++) {
+            blackhole(arr[randomIndexArr[i]]);
+        }
     }
-    end = std::chrono::system_clock::now();
-    elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-    printf ("Random access time = %f miliseconds\n", static_cast<double>(elapsed) / 1000.0);
     return 0;
 }
