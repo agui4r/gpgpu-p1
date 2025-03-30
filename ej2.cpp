@@ -67,6 +67,7 @@ int main(int argc, char* argv[]) {
 
     unsigned long elapsed = chrono::duration_cast<chrono::microseconds>(end - start).count();
     printf ("Normal matrix multiplication time = %f miliseconds\n", static_cast<double>(elapsed) / 1000.0);
+    printf ("Normal matrix multiplication MFLOPS = %f\n", (size*size*size) / static_cast<double>(elapsed));
 
     // cout << "Normal matrix multiplication result: " << endl;
     // for (size_t i = 0; i < size; i++) {
@@ -82,6 +83,7 @@ int main(int argc, char* argv[]) {
 
     elapsed = chrono::duration_cast<chrono::microseconds>(end - start).count();
     printf ("Cache optimized matrix multiplication time = %f miliseconds\n", static_cast<double>(elapsed) / 1000.0);
+    printf ("Cache optimized matrix multiplication MFLOPS = %f\n", (size*size*size) / static_cast<double>(elapsed));
 
     // cout << "Cache optimized matrix multiplication result: " << endl;
     // for (size_t i = 0; i < size; i++) {
